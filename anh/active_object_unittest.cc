@@ -2,12 +2,12 @@
 // Use of this source code is governed by a GPL-style license that can be
 // found in the COPYING file.
 
-#include "utilities/active_object.h"
+#include "anh/active_object.h"
 
 #include <gtest/gtest.h>
 #include <boost/thread.hpp>
 
-// Wrapping tests in an anonymous namespace prevents potential name conflicts
+// Wrapping tests in an anonymous namespace prevents potential name conflicts.
 namespace {
 
 /*! This class is an example implementation of the active object and displays
@@ -19,7 +19,7 @@ public:
 
     // Asyncronously set the called_ value to true. Use atomic operations
     // for setting the value because we also read this value from other threads.
-    void SomeAsyncInteraction() { active_obj_.Send([=] {
+    void SomeAsyncInteraction() { active_obj_.send([=] {
             called_ = true;
     } ); }
 
@@ -31,7 +31,7 @@ public:
 
         // Add the message to the active object's queue that runs the task which in turn
         // updates the future.
-        active_obj_.Send([task] {
+        active_obj_.send([task] {
             (*task)();
         });
 
@@ -40,7 +40,7 @@ public:
     }
 
 private:
-    utilities::ActiveObject active_obj_;
+    anh::ActiveObject active_obj_;
     bool called_;
 };
 

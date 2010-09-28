@@ -2,17 +2,17 @@
 // Use of this source code is governed by a GPL-style license that can be
 // found in the COPYING file.
 
-#ifndef UTILITIES_ACTIVE_OBJECT_H_
-#define UTILITIES_ACTIVE_OBJECT_H_
+#ifndef ANH_ACTIVE_OBJECT_H_
+#define ANH_ACTIVE_OBJECT_H_
 
 #include <functional>
 
 #include <boost/thread.hpp>
 #include <tbb/concurrent_queue.h>
 
-/// The utilities namespace hosts a number of useful utility classes intended
+/// The anh namespace hosts a number of useful utility classes intended
 /// to be used and reused in domain specific classes.
-namespace utilities {
+namespace anh {
 
 /**
  * There are many times when it makes sense to break an object off and run it
@@ -46,11 +46,11 @@ public:
      *
      * \param message The message to process on the private thread.
      */
-    void Send(Message message);
+    void send(Message message);
 
 private:
     /// Runs the ActiveObject's message loop until an end message is received.
-    void Run();
+    void run();
 
     tbb::concurrent_queue<Message> message_queue_;
     boost::thread thread_;
@@ -62,4 +62,4 @@ private:
 
 }  // namespace utilities
 
-#endif  // UTILITIES_ACTIVE_OBJECT_H_
+#endif  // ANH_ACTIVE_OBJECT_H_

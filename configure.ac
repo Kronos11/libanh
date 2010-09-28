@@ -2,10 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.67])
-AC_INIT([utilities], [1.0.0], [http://github.com/anhstudios/utilities/issues])
+AC_INIT([libanh], [1.0.0], [http://github.com/anhstudios/libanh/issues])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall -Werror])
 LT_PREREQ([2.2])
 LT_INIT([dlopen])
 
@@ -75,12 +75,19 @@ fi
 
 ##########################################################################
 
-# store current user given compiler flags to avoid default setup via AC_PROG_CXX
-OLD_CXXFLAGS=$CXXFLAGS
-
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CXXCPP
+
+# reset compiler flags to initial flags
+CXXFLAGS=$OLD_CXXFLAGS
+
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
 
 # Check for doxygen program.
 AC_PROG_TRY_DOXYGEN
@@ -92,15 +99,9 @@ if test -z "$DOXYGEN"; then
 fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test "x$DOXYGEN" != x])
 
-# reset compiler flags to initial flags
-CXXFLAGS=$OLD_CXXFLAGS
-  
-AC_PROG_CC
-
 # Checks for libraries.
 AX_BOOST_BASE([1.44])
 AX_BOOST_DATE_TIME
-AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_SYSTEM
 AX_BOOST_THREAD
 
@@ -151,7 +152,9 @@ LIBS="$LIBS -ltbb"
 # check for tbb library headers   
 AC_MSG_CHECKING([for the tbb library headers])
 # try to compile a file that includes a header of the library tbb
-AC_COMPILE_IFELSE([[#include <tbb/atomic.h>]],
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+    #include <tbb/atomic.h>
+    ])],
     [AC_MSG_RESULT([found])
         # try to link the function 'tbb::atomic< T >' out of library glog
         AC_MSG_CHECKING([whether the tbb library can be linked])
@@ -205,7 +208,9 @@ LIBS="$LIBS -lglog"
 # check for glog library headers   
 AC_MSG_CHECKING([for the glog library headers])
 # try to compile a file that includes a header of the library glog
-AC_COMPILE_IFELSE([[#include <glog/logging.h>]],
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+    #include <glog/logging.h>
+    ])],
     [AC_MSG_RESULT([found])
         # try to link the function 'google::InitGoogleLogging' out of library glog
         AC_MSG_CHECKING([whether the glog library can be linked])
@@ -260,7 +265,9 @@ LIBS="$LIBS -lgtest"
 # check for gtest library headers   
 AC_MSG_CHECKING([for the gtest library headers])
 # try to compile a file that includes a header of the library gtest
-AC_COMPILE_IFELSE([[#include <gtest/gtest.h>]],
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+    #include <gtest/gtest.h>
+    ])],
     [AC_MSG_RESULT([found])
         # try to link the function 'testing::InitGoogleTest' out of library gtest
         AC_MSG_CHECKING([whether the gtest library can be linked])
@@ -307,15 +314,13 @@ AC_ARG_ENABLE(debug,
    AM_CXXFLAGS="${AM_CXXFLAGS} -O3"])
 
 # distribute the changed variables among the Makefiles
-AC_SUBST([LIBS])
 AC_SUBST([AM_CXXFLAGS])
 AC_SUBST([AM_LDFLAGS])
 
 AC_CONFIG_FILES([Makefile
                  docs/Makefile
                  docs/doxygen/Makefile
-                 docs/doxygen/doxyfile
-                 utilities/Makefile])
+                 docs/doxygen/doxyfile ])
 
 AC_OUTPUT
 echo "

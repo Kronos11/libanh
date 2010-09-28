@@ -2,27 +2,29 @@
 // Use of this source code is governed by a GPL-style license that can be
 // found in the COPYING file.
 
-#include "utilities/active_object.h"
+#include "anh/active_object.h"
 
 using boost::thread;
 
-namespace utilities {
+/// The anh namespace hosts a number of useful utility classes intended
+/// to be used and reused in domain specific classes.
+namespace anh {
 
 ActiveObject::ActiveObject() : done_(false) {
-    thread_ = std::move(thread([=] { this->Run(); }));
+    thread_ = std::move(thread([=] { run(); }));
 }
 
 ActiveObject::~ActiveObject() {
-    Send([&] { done_ = true; });
+    send([&] { done_ = true; });
     thread_.join();
 }
 
-void ActiveObject::Send(Message message) {
+void ActiveObject::send(Message message) {
     message_queue_.push(message);
     condition_.notify_one();
 }
 
-void ActiveObject::Run() {
+void ActiveObject::run() {
     // Create a lock and the container we're going to use inside the main
     // loop. Note that the lock here is immediately unlocked as soon as the
     // main loop is entered by the condition variable.
@@ -44,4 +46,4 @@ void ActiveObject::Run() {
     }
 }
 
-}  // namespace utilities
+}  // namespace anh
