@@ -1,0 +1,42 @@
+# These files should be ignored
+bin/
+ipch/
+*.cache
+*.zip
+*.7z
+*.user
+*.ncb
+*.suo
+*.sdf
+*.opensdf
+*.lnk
+*.orig
+
+# ignore autotools generated files
+autom4te.cache/
+aclocal.m4
+autoscan.log
+config.h.in~
+configure
+configure.scan
+Makefile.in
+m4/libtool.m4
+m4/lt*.m4
+
+# ignore directories created for the build process
+build/*
+build-aux/*
+
+# ignore 3rd party libraries
+glog/
+gtest/
+tbb/
+
+# ignore OS generated files
+.DS_Store
+
+# ignore eclipse generated files
+.autotools
+.cproject
+.project
+.settings/
