@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libanh", "..\anh\libanh.vcxproj", "{DE2959E3-5471-4361-B5BE-28116A5F45FD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libanh_unittests", "..\anh\libanh_unittests.vcxproj", "{22059FC2-3818-4742-A976-201BFC5DE6F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE2959E3-5471-4361-B5BE-28116A5F45FD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DE2959E3-5471-4361-B5BE-28116A5F45FD}.Debug|Win32.Build.0 = Debug|Win32
+		{DE2959E3-5471-4361-B5BE-28116A5F45FD}.Release|Win32.ActiveCfg = Release|Win32
+		{DE2959E3-5471-4361-B5BE-28116A5F45FD}.Release|Win32.Build.0 = Release|Win32
+		{22059FC2-3818-4742-A976-201BFC5DE6F0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{22059FC2-3818-4742-A976-201BFC5DE6F0}.Debug|Win32.Build.0 = Debug|Win32
+		{22059FC2-3818-4742-A976-201BFC5DE6F0}.Release|Win32.ActiveCfg = Release|Win32
+		{22059FC2-3818-4742-A976-201BFC5DE6F0}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

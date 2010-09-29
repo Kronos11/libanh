@@ -23,11 +23,16 @@ Makefile.in
 m4/libtool.m4
 m4/lt*.m4
 
-# ignore directories created for the build process
+# ignore files and directories created for the build process
 build/*
 build-aux/*
+msvc/Debug
+msvc/Release
+msvc/build-aux
+msvc/DEPS
 
 # ignore 3rd party libraries
+boost/
 glog/
 gtest/
 tbb/
